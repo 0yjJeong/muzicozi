@@ -1,11 +1,13 @@
-import express from 'express';
+import path from 'path';
+import { pipe } from 'ramda';
+import { setupApp, createConnection, startApp } from './service';
 
-const app = express();
+if (process.env.NODE_ENV === 'production') {
+  require('dotenv').config({ path: path.join(__dirname, '..', '.env') });
+} else if (process.env.NODE_ENV === 'development') {
+  require('dotenv').config({
+    path: path.join(__dirname, '..', '.env.development'),
+  });
+}
 
-const PORT = 8080;
-
-app.get('/', (req, res) => {
-  res.send('Hello, World!');
-});
-
-app.listen(PORT, () => console.log(`Server running on ${PORT}`));
+createConnection().then(pipe(setupApp, startApp));

@@ -1,11 +1,7 @@
 import { Express } from 'express';
+import { songRouter } from '../routes';
 
 export const handleRoutes = (app: Express) => {
-  app.use('/user', (req, res) => {
-    res.send('user');
-  });
-  app.use('/song', (req, res) => {
-    res.send('song');
-  });
+  app.use('/song', songRouter);
   return app;
 };

@@ -6,6 +6,7 @@ import HomePage from './pages/home/HomePage';
 import { theme } from './theme/muzicoziTheme';
 import { GlobalStyle } from './GlobalStyle';
 import { Page } from './layout/page';
+import Header from './layout/header/Header';
 
 const queryClient = new QueryClient();
 
@@ -16,6 +17,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <Page>
           <BrowserRouter>
+            <Header />
             <Routes>
               <Route path='/' element={<HomePage />} />
             </Routes>

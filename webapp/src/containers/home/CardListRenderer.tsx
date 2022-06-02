@@ -5,22 +5,14 @@ import Card from '../../components/card/Card';
 import { CardList, ExpandedCardList } from '../../components/cardList';
 import { Song } from '../../../../shared/types';
 import { getArtistSongs } from '../../lib/apis';
+import useOnResize from '../../hooks/useOnResize';
 
 function CardListRenderer() {
   const { isLoading, data: songs } = useQuery('artist-songs', getArtistSongs, {
     retry: false,
   });
 
-  const [width, setWidth] = React.useState(window.innerWidth);
-
-  useEffect(() => {
-    const onResize = () => {
-      const { innerWidth } = window;
-      setWidth(innerWidth);
-    };
-    window.addEventListener('resize', onResize);
-    return () => window.removeEventListener('resize', onResize);
-  }, []);
+  const [width] = useOnResize();
 
   if (isLoading || !songs) return null;
 

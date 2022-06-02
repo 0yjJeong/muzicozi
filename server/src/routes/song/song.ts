@@ -65,8 +65,8 @@ router.get('/artist-songs', async (req, res) => {
 
     const songsWithAddition = map((song: Song) => ({
       ...song,
-      hearts: groupedHearts[song.id],
-      comments: groupedComments[song.id],
+      hearts: groupedHearts[song.id] || [],
+      comments: groupedComments[song.id] || [],
     }));
 
     res.json(songsWithAddition(normalizeSongs));

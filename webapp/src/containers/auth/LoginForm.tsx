@@ -41,9 +41,9 @@ function LoginForm() {
     }
 
     if (checkedValues[0] === undefined) {
-      setError('Invalid email');
+      setError('Invalid email.');
     } else if (checkedValues[1] === undefined) {
-      setError('Invalid password');
+      setError('Invalid password.');
     }
   };
 

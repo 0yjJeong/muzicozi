@@ -42,11 +42,11 @@ function SignUpForm() {
     }
 
     if (checkedValues[0] === undefined) {
-      setError('Invalid email');
+      setError('Invalid email.');
     } else if (checkedValues[1] === undefined) {
-      setError('Invalid password');
+      setError('Invalid password.');
     } else if (checkedValues[2] === undefined) {
-      setError('Invalid nickname');
+      setError('Invalid nickname.');
     }
   };
 

@@ -23,8 +23,14 @@ export const theme = {
     icon: COLORS.DEFAULT_PAGE_THEME_LIGHTEST_COLOR,
   },
   button: {
-    background: COLORS.LINK_TEXT,
-    color: '#fff',
+    light: {
+      background: COLORS.LINK_TEXT,
+      color: '#fff',
+    },
+    dark: {
+      background: COLORS.DEFAULT_PAGE_THEME_LIGHT_COLOR,
+      color: '#fff',
+    },
   },
   typography: {
     head1: {

@@ -7,6 +7,7 @@ import { theme } from './theme/muzicoziTheme';
 import { GlobalStyle } from './GlobalStyle';
 import { Page } from './layout/page';
 import Header from './layout/header/Header';
+import AuthPage from './pages/auth/AuthPage';
 
 const queryClient = new QueryClient();
 
@@ -20,6 +21,8 @@ function App() {
             <Header />
             <Routes>
               <Route path='/' element={<HomePage />} />
+              <Route path='/login' element={<AuthPage />} />
+              <Route path='/signup' element={<AuthPage />} />
             </Routes>
           </BrowserRouter>
         </Page>

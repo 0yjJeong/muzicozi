@@ -7,9 +7,13 @@ const FormBlock = styled.form`
   padding-right: 1rem;
 
   .header {
+    .title {
+      text-align: center;
+      margin-bottom: 1rem;
+      ${(p) => p.theme.typography.head1}
+    }
+
     margin-top: 3.6rem;
-    text-align: center;
-    ${(p) => p.theme.typography.head1}
   }
 
   .content {
@@ -48,8 +52,8 @@ const FormBlock = styled.form`
 
 interface FormProps extends FormHTMLAttributes<HTMLFormElement> {}
 
-function Form({ children }: FormProps) {
-  return <FormBlock>{children}</FormBlock>;
+function Form({ children, ...rest }: FormProps) {
+  return <FormBlock {...rest}>{children}</FormBlock>;
 }
 
 export default Form;

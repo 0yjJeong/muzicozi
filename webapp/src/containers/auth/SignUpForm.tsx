@@ -53,7 +53,7 @@ function SignUpForm() {
   return (
     <Form onSubmit={onSubmit}>
       <div className='header'>
-        <div>Create account</div>
+        <div className='title'>Create account</div>
         {error && <ErrorMessage message={error} />}
       </div>
       <div className='content'>

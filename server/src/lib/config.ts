@@ -18,6 +18,8 @@ const config = {
 
   GENIUS_API_HOST: process.env.GENIUS_API_HOST || '',
   GENIUS_API_KEY: process.env.GENIUS_API_KEY || '',
+
+  SECRET_KEY: process.env.SECRET_KEY || 'secretkey',
 };
 
 export default config;

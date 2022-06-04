@@ -1,65 +1,49 @@
 import React, { FormEvent } from 'react';
-import {
-  pipe,
-  prop,
-  map,
-  match,
-  mergeWith,
-  head,
-  values,
-  all,
-  is,
-} from 'ramda';
+import { useMutation } from 'react-query';
 import { BaseButton } from '../../components/common';
 import { Form } from '../../components/form';
 import { LabeledInput } from '../../components/labeledInput';
 import useInput from '../../hooks/useInput';
-import { ErrorMessage } from '../../components/errorMessage';
-import { Link } from 'react-router-dom';
+import { Message } from '../../components/message';
+import { Link, useNavigate } from 'react-router-dom';
+import { login } from '../../lib/apis';
 
 function LoginForm() {
-  const [error, setError] = React.useState('');
+  const loginMutation = useMutation(login);
+  const navigate = useNavigate();
   const email = useInput();
   const password = useInput();
+
+  React.useEffect(() => {
+    if (loginMutation.isSuccess) {
+      if (!loginMutation.data.error) {
+        localStorage.setItem('token', JSON.stringify(loginMutation.data));
+        navigate('/');
+      }
+    }
+  }, [loginMutation.data, loginMutation.isSuccess]);
+
+  const messageFragment = loginMutation.isSuccess &&
+    loginMutation.data?.error && <Message message={loginMutation.data.error} />;
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
 
-    const checkedValues = pipe(
-      map(prop('value')),
-      mergeWith(
-        (a, b) => head(match(a)(b)),
-        [
-          new RegExp(/^[a-zA-Z0-9._-]+@[a-zA-Z]+?.[a-zA-Z]{2,3}(.[a-z]{2})?$/g),
-          new RegExp(/^(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z0-9]{8,24}$/g),
-        ]
-      ),
-      values
-    )([email, password]);
-
-    if (all(is(String))(checkedValues)) {
-    }
-
-    if (checkedValues[0] === undefined) {
-      setError('Invalid email.');
-    } else if (checkedValues[1] === undefined) {
-      setError('Invalid password.');
-    }
+    loginMutation.mutate({
+      email: email.value,
+      password: password.value,
+    });
   };
 
   return (
     <Form onSubmit={onSubmit}>
       <div className='header'>
-        <div>Login to Muzicozi</div>
-        {error && <ErrorMessage message={error} />}
+        <div className='title'>Login to Muzicozi</div>
+        {messageFragment}
       </div>
       <div className='content'>
         <LabeledInput label='Email' {...email} />
-        <LabeledInput
-          label='Password'
-          caption='8-24 characters, must contain a number and an uppercase & lower case letter.'
-          {...password}
-        />
+        <LabeledInput label='Password' {...password} />
       </div>
       <div className='footer'>
         <BaseButton buttonType='primary' type='submit'>

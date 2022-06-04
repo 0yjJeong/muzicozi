@@ -10,21 +10,35 @@ import {
   all,
   is,
 } from 'ramda';
+import { Link } from 'react-router-dom';
+import { useMutation } from 'react-query';
 import { BaseButton } from '../../components/common';
 import { Form } from '../../components/form';
 import { LabeledInput } from '../../components/labeledInput';
 import useInput from '../../hooks/useInput';
-import { ErrorMessage } from '../../components/errorMessage';
-import { Link } from 'react-router-dom';
+import { Message } from '../../components/message';
+import { signup } from '../../lib/apis';
 
 function SignUpForm() {
-  const [error, setError] = React.useState('');
+  const signUpMutation = useMutation(signup);
+  const [error, setError] = React.useState<string | null>(null);
   const email = useInput();
   const password = useInput();
   const nickname = useInput();
 
+  const messageFragment = signUpMutation.data ? (
+    signUpMutation.isSuccess && signUpMutation.data.error ? (
+      <Message message={signUpMutation.data.error} />
+    ) : (
+      <Message message='User registered successfully!' type='success' />
+    )
+  ) : (
+    error && <Message message={error} />
+  );
+
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
+
     const checkedValues = pipe(
       map(prop('value')),
       mergeWith(
@@ -39,6 +53,15 @@ function SignUpForm() {
     )([email, password, nickname]);
 
     if (all(is(String))(checkedValues)) {
+      if (error) {
+        setError(null);
+      }
+
+      signUpMutation.mutate({
+        email: email.value,
+        password: password.value,
+        nickname: nickname.value,
+      });
     }
 
     if (checkedValues[0] === undefined) {
@@ -54,7 +77,7 @@ function SignUpForm() {
     <Form onSubmit={onSubmit}>
       <div className='header'>
         <div className='title'>Create account</div>
-        {error && <ErrorMessage message={error} />}
+        {messageFragment}
       </div>
       <div className='content'>
         <LabeledInput label='Email' {...email} />
@@ -71,7 +94,7 @@ function SignUpForm() {
       </div>
       <div className='footer'>
         <BaseButton buttonType='primary' type='submit'>
-          Sign up
+          Sign Up
         </BaseButton>
         <div className='wizard'>
           Already have an account?

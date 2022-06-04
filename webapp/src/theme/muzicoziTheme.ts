@@ -7,6 +7,10 @@ export const COLORS = {
   NAMED: {
     WHITE: '#FEFEFE',
   },
+  STATUS: {
+    SUCCESS: '#04b542',
+    FAILURE: '#e84f85',
+  },
 };
 
 export const mediaQuery = (minWidth: number) => `
@@ -21,6 +25,10 @@ export const theme = {
     border: COLORS.DEFAULT_PAGE_THEME_LIGHT_COLOR,
     highlight: COLORS.DEFAULT_PAGE_THEME_LIGHT_COLOR,
     icon: COLORS.DEFAULT_PAGE_THEME_LIGHTEST_COLOR,
+    status: {
+      success: COLORS.STATUS.SUCCESS,
+      failure: COLORS.STATUS.FAILURE,
+    },
   },
   button: {
     light: {

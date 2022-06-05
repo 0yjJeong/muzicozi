@@ -8,9 +8,13 @@ import { getArtistSongs } from '../../lib/apis';
 import useOnResize from '../../hooks/useOnResize';
 
 function CardListRenderer() {
-  const { isLoading, data: songs } = useQuery('artist-songs', getArtistSongs, {
-    retry: false,
-  });
+  const { isLoading, data: songs } = useQuery(
+    ['artist-songs', { id: 16775 }],
+    getArtistSongs,
+    {
+      retry: false,
+    }
+  );
 
   const [width] = useOnResize();
 

@@ -2,10 +2,6 @@ import axios from 'axios';
 import { Song } from '../../../../shared/types';
 import config from '../config';
 
-type Params = {
-  [key: string]: string;
-};
-
 type Fetched<T> = {
   meta: {
     status: number;
@@ -18,37 +14,55 @@ const headers = {
   'X-RapidAPI-Key': config.GENIUS_API_KEY,
 };
 
-export const getSong = async (
-  songId: string
-): Promise<Fetched<{ song: Song }>> => {
+type GetSongParams = {
+  id: string;
+};
+
+export const getSong = async ({
+  id,
+}: GetSongParams): Promise<Fetched<{ song: Song }>> => {
   const options = {
     method: 'GET',
-    url: `https://genius.p.rapidapi.com/songs/${songId}`,
+    url: `https://genius.p.rapidapi.com/songs/${id}`,
     headers,
   };
   const response = await axios.request(options);
   return response.data;
 };
 
-export const getArtistSongs = async (
-  params?: Params
-): Promise<Fetched<{ songs: Song[] }>> => {
+type GetArtistSongsParams = {
+  artistId: number;
+  sort?: 'title' | 'popularity';
+  page?: number;
+  perPage?: number;
+};
+
+export const getArtistSongs = async ({
+  artistId,
+  ...rest
+}: GetArtistSongsParams): Promise<Fetched<{ songs: Song[] }>> => {
   const options = {
     method: 'GET',
-    url: 'https://genius.p.rapidapi.com/artists/16775/songs',
+    url: `https://genius.p.rapidapi.com/artists/${artistId}/songs`,
     headers,
-    params,
+    params: {
+      ...rest,
+    },
   };
   const response = await axios.request(options);
   return response.data;
 };
 
-export const search = async (
-  q: string
-): Promise<Fetched<{ songs: Song[] }>> => {
+type SearchParams = {
+  q: string;
+};
+
+export const search = async ({
+  q,
+}: SearchParams): Promise<Fetched<{ songs: Song[] }>> => {
   const options = {
     method: 'GET',
-    url: 'https://genius.p.rapidapi.com/artists/16775/songs',
+    url: 'https://genius.p.rapidapi.com/search',
     headers,
     params: { q },
   };

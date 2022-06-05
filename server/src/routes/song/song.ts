@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.get('/id/:id', async (req, res) => {
   try {
-    const value = await getSong(req.params.id);
+    const value = await getSong(req.params);
 
     const hearts = await HeartModel.findOne({ songId: req.params.id }).exec();
     const comments = await CommentModel.findOne({
@@ -30,9 +30,12 @@ router.get('/id/:id', async (req, res) => {
   } catch (error) {}
 });
 
-router.get('/artist-songs', async (req, res) => {
+router.get('/artist-songs/:id', async (req, res) => {
   try {
-    const value = await getArtistSongs(req.body);
+    const value = await getArtistSongs({
+      ...req.body,
+      artistId: req.params.id,
+    });
 
     const songIds = ids(value.response.songs);
 
@@ -77,7 +80,7 @@ router.get('/artist-songs', async (req, res) => {
 
 router.get('/search', async (req, res) => {
   try {
-    const value = await search(req.body.q);
+    const value = await search(req.body);
 
     const normalizeSongs = map(
       normalize(['id', 'title', 'song_art_image_url'])

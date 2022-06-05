@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { RiSearchLine } from 'react-icons/ri';
+import { FaSearch } from 'react-icons/fa';
 import { BaseButton } from '../../components/common';
 import { useLogged } from '../../hooks/useLogged';
 
@@ -23,8 +23,8 @@ const Header: FC<HeaderProps> = ({ logo = 'logo.png' }) => {
   );
 
   const SearchFragment = (
-    <Link to='/search'>
-      <RiSearchLine />
+    <Link to='/search' className='search'>
+      <FaSearch />
     </Link>
   );
 
@@ -79,16 +79,24 @@ const HeaderBlock = styled.header`
   }
 
   .right {
+    display: flex;
+    align-items: center;
+
     & > * {
       margin-left: 5px;
     }
 
-    .user {
-      ${(p) => p.theme.typography.caption}
+    .search {
+      font-size: 1.6rem;
+      display: flex;
+
+      svg {
+        color: ${(p) => p.theme.palette.icon};
+      }
     }
 
-    svg {
-      color: ${(p) => p.theme.palette.icon};
+    .user {
+      ${(p) => p.theme.typography.caption}
     }
   }
 `;

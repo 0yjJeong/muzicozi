@@ -3,12 +3,15 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { RiSearchLine } from 'react-icons/ri';
 import { BaseButton } from '../../components/common';
+import { useLogged } from '../../hooks/useLogged';
 
 type HeaderProps = {
   logo?: string;
 };
 
 const Header: FC<HeaderProps> = ({ logo = 'logo.png' }) => {
+  const logged = useLogged();
+
   const logoFragment = (
     <>
       {logo && (
@@ -37,13 +40,21 @@ const Header: FC<HeaderProps> = ({ logo = 'logo.png' }) => {
     </Link>
   );
 
+  const UserFragment = <span className='user'>{logged?.nickname!}</span>;
+
   return (
     <HeaderBlock>
       <div className='left'>{logoFragment}</div>
       <div className='right'>
         {SearchFragment}
-        {LoginFragment}
-        {SignUpFragment}
+        {logged ? (
+          <>{UserFragment}</>
+        ) : (
+          <>
+            {LoginFragment}
+            {SignUpFragment}
+          </>
+        )}
       </div>
     </HeaderBlock>
   );
@@ -70,6 +81,10 @@ const HeaderBlock = styled.header`
   .right {
     & > * {
       margin-left: 5px;
+    }
+
+    .user {
+      ${(p) => p.theme.typography.caption}
     }
 
     svg {

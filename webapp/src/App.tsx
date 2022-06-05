@@ -8,6 +8,7 @@ import { GlobalStyle } from './GlobalStyle';
 import { Page } from './layout/page';
 import Header from './layout/header/Header';
 import AuthPage from './pages/auth/AuthPage';
+import { LoggedProvider } from './hooks/useLogged';
 
 const queryClient = new QueryClient();
 
@@ -18,12 +19,14 @@ function App() {
       <ThemeProvider theme={theme}>
         <Page>
           <BrowserRouter>
-            <Header />
-            <Routes>
-              <Route path='/' element={<HomePage />} />
-              <Route path='/login' element={<AuthPage />} />
-              <Route path='/signup' element={<AuthPage />} />
-            </Routes>
+            <LoggedProvider>
+              <Header />
+              <Routes>
+                <Route path='/' element={<HomePage />} />
+                <Route path='/login' element={<AuthPage />} />
+                <Route path='/signup' element={<AuthPage />} />
+              </Routes>
+            </LoggedProvider>
           </BrowserRouter>
         </Page>
       </ThemeProvider>

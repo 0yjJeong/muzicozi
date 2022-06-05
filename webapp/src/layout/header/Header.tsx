@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { FaSearch } from 'react-icons/fa';
 import { BaseButton } from '../../components/common';
 import { useLogged } from '../../hooks/useLogged';
+import LogoIcon from './LogoIcon';
 
 type HeaderProps = {
   logo?: string;
@@ -44,7 +45,9 @@ const Header: FC<HeaderProps> = ({ logo = 'logo.png' }) => {
 
   return (
     <HeaderBlock>
-      <div className='left'>{logoFragment}</div>
+      <div className='left'>
+        <LogoIcon />
+      </div>
       <div className='right'>
         {SearchFragment}
         {logged ? (
@@ -71,12 +74,6 @@ const HeaderBlock = styled.header`
   position: sticky;
   top: 0;
   background: ${(p) => p.theme.palette.highlight};
-
-  .left {
-    img {
-      height: 50px;
-    }
-  }
 
   .right {
     display: flex;

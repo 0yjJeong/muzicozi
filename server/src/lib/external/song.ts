@@ -59,13 +59,13 @@ type SearchParams = {
 
 export const search = async ({
   q,
-}: SearchParams): Promise<Fetched<{ songs: Song[] }>> => {
+}: SearchParams): Promise<Fetched<{ hits: any[] }>> => {
   const options = {
     method: 'GET',
     url: 'https://genius.p.rapidapi.com/search',
     headers,
     params: { q },
   };
-  const response = await axios.request(options);
+  let response = await axios.request(options);
   return response.data;
 };

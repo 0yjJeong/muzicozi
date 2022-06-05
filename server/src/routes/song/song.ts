@@ -1,5 +1,5 @@
 import express from 'express';
-import { groupBy, map, mergeAll, prop } from 'ramda';
+import { groupBy, map, mergeAll, pluck, prop } from 'ramda';
 import { Song } from '../../../../shared/types';
 import { normalize } from '../../helpers/normalize';
 import { getArtistSongs, getSong, search } from '../../lib/external/song';
@@ -81,11 +81,10 @@ router.get('/artist-songs/:id', async (req, res) => {
 router.get('/search', async (req, res) => {
   try {
     const value = await search(req.body);
-
+    const result = pluck('result')(value.response.hits);
     const normalizeSongs = map(
-      normalize(['id', 'title', 'song_art_image_url'])
-    )(value.response.songs) as Song[];
-
+      normalize(['id', 'title', 'song_art_image_url', 'primary_artist'])
+    )(result) as Song[];
     res.json(normalizeSongs);
   } catch (error) {
     res.json(error);

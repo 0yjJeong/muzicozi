@@ -9,6 +9,7 @@ import { Page } from './layout/page';
 import Header from './layout/header/Header';
 import AuthPage from './pages/auth/AuthPage';
 import { LoggedProvider } from './hooks/useLogged';
+import { SearchContainer, SearchResultContainer } from './containers/search';
 
 const queryClient = new QueryClient();
 
@@ -25,6 +26,9 @@ function App() {
                 <Route path='/' element={<HomePage />} />
                 <Route path='/login' element={<AuthPage />} />
                 <Route path='/signup' element={<AuthPage />} />
+                <Route path='search' element={<SearchContainer />}>
+                  <Route path=':q' element={<SearchResultContainer />} />
+                </Route>
               </Routes>
             </LoggedProvider>
           </BrowserRouter>

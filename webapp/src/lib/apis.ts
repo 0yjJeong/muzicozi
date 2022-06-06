@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { Song } from '../../../shared/types';
 import { OverrideQueryFnCtx } from '../types/query';
+import { Searched } from '../types/transform';
 
 type GetSongParams = OverrideQueryFnCtx<number>;
 
@@ -32,9 +33,9 @@ type SearchParams = OverrideQueryFnCtx<string | undefined>;
 
 export const search = async ({ queryKey }: SearchParams) => {
   const [_key, q] = queryKey;
-  const res = await axios.get<Pick<Song, 'id' | 'title' | 'songArtImageUrl'>>(
+  const res = await axios.post<Searched[]>(
     `${process.env.REACT_APP_SERVER_HOST}/song/search`,
-    { params: { q } }
+    { q }
   );
   return res.data;
 };

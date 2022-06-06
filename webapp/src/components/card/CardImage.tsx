@@ -25,3 +25,8 @@ export const ArtistImage = styled(Image)`
   width: 2.4rem;
   border-radius: 50%;
 `;
+
+export const SearchImage = styled(Image)`
+  width: 6.5rem;
+  border-radius: 2px;
+`;

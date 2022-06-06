@@ -78,7 +78,7 @@ router.get('/artist-songs/:id', async (req, res) => {
   }
 });
 
-router.get('/search', async (req, res) => {
+router.post('/search', async (req, res) => {
   try {
     const value = await search(req.body);
     const result = pluck('result')(value.response.hits);

@@ -4,7 +4,7 @@ import type { Comment } from '../../../shared/types';
 const commentSchema = new mongoose.Schema({
   id: mongoose.Schema.Types.ObjectId,
 
-  userId: { type: String, required: true },
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
 
   songId: { type: Number, required: true, index: true },
 

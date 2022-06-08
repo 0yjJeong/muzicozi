@@ -30,3 +30,8 @@ export const SearchImage = styled(Image)`
   width: 6.5rem;
   border-radius: 2px;
 `;
+
+export const ProfileImage = styled(Image)`
+  width: 13.5rem;
+  border-radius: 2px;
+`;

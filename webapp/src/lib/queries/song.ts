@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Song } from '../../../../shared/types';
+import { Heart, Song } from '../../../../shared/types';
 import { OverrideQueryFnCtx } from '../../types/query';
 import { Searched } from '../../types/transform';
 
@@ -29,6 +29,16 @@ export const getArtistSongs = async ({ queryKey }: GetArtistSongsParams) => {
   return res.data;
 };
 
+type GetHeartsParams = OverrideQueryFnCtx<number | undefined>;
+
+export const getHearts = async ({ queryKey }: GetHeartsParams) => {
+  const [_key, songId] = queryKey;
+  const res = await axios.get<Heart[]>(
+    `${process.env.REACT_APP_SERVER_HOST}/song/hearts/${songId}`
+  );
+  return res.data;
+};
+
 type SearchParams = OverrideQueryFnCtx<string | undefined>;
 
 export const search = async ({ queryKey }: SearchParams) => {
@@ -36,6 +46,28 @@ export const search = async ({ queryKey }: SearchParams) => {
   const res = await axios.post<Searched[]>(
     `${process.env.REACT_APP_SERVER_HOST}/song/search`,
     { q }
+  );
+  return res.data;
+};
+
+type LikeParams = number;
+
+export const likeSong = async (songId: LikeParams) => {
+  const res = await axios.post(
+    `${process.env.REACT_APP_SERVER_HOST}/song/like`,
+    { songId },
+    { withCredentials: true }
+  );
+  return res.data;
+};
+
+type UnlikeParams = number;
+
+export const unlikeSong = async (songId: UnlikeParams) => {
+  const res = await axios.post(
+    `${process.env.REACT_APP_SERVER_HOST}/song/unlike`,
+    { songId },
+    { withCredentials: true }
   );
   return res.data;
 };

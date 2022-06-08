@@ -3,6 +3,7 @@ import { GiMicrophone } from 'react-icons/gi';
 import { BiCalendarAlt, BiComment } from 'react-icons/bi';
 import { AiOutlineHeart } from 'react-icons/ai';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { Song } from '../../../../shared/types';
 import { ElbumImage, ArtistImage } from './CardImage';
 import CardLink from './CardLink';
@@ -11,7 +12,7 @@ type CardProps = {
   song: Song;
 };
 
-const CardBlock = styled.div`
+const CardBlock = styled(Link)`
   height: 20rem;
   box-sizing: border-box;
   border: 1.4px solid ${(p) => p.theme.palette.border};
@@ -19,6 +20,7 @@ const CardBlock = styled.div`
   display: flex;
   flex-direction: column;
   padding: 1.6rem;
+  text-decoration: none;
 
   .header {
     display: flex;
@@ -59,7 +61,7 @@ const CardBlock = styled.div`
 
 function Card({ song }: CardProps) {
   return (
-    <CardBlock>
+    <CardBlock to={`/song/${song.id}`}>
       <div className='header'>
         <ElbumImage imageUrl={song.songArtImageUrl} />
         <div>{song.title}</div>

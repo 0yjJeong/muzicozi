@@ -103,4 +103,36 @@ router.post('/search', async (req, res) => {
   }
 });
 
+router.post('/like', auth, async (req, res) => {
+  try {
+    const { userId, songId } = req.body;
+    let heart = await HeartModel.findOne({
+      userId,
+      songId,
+    });
+    if (heart) return res.json({ error: 'Already liked.' });
+    heart = new HeartModel({
+      userId,
+      songId,
+    });
+    await heart.save();
+    res.json(heart);
+  } catch (error) {
+    res.json(error);
+  }
+});
+
+router.post('/unlike', auth, async (req, res) => {
+  try {
+    const { userId, songId } = req.body;
+    let heart = await HeartModel.findOneAndDelete({
+      userId,
+      songId,
+    });
+    res.json(heart);
+  } catch (error) {
+    res.json(error);
+  }
+});
+
 export default router;

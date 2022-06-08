@@ -4,6 +4,7 @@ import { Song } from '../../../../shared/types';
 import { normalize } from '../../helpers/normalize';
 import { getArtistSongs, getSong, search } from '../../lib/external/song';
 import { ids } from '../../lib/utils';
+import auth from '../../middlewares/auth';
 import { HeartModel, CommentModel } from '../../model';
 
 const router = express.Router();
@@ -12,8 +13,8 @@ router.get('/id/:id', async (req, res) => {
   try {
     const value = await getSong(req.params);
 
-    const hearts = await HeartModel.findOne({ songId: req.params.id }).exec();
-    const comments = await CommentModel.findOne({
+    const hearts = await HeartModel.find({ songId: req.params.id }).exec();
+    const comments = await CommentModel.find({
       songId: req.params.id,
     }).exec();
 
@@ -73,6 +74,17 @@ router.get('/artist-songs/:id', async (req, res) => {
     }));
 
     res.json(songsWithAddition(normalizeSongs));
+  } catch (error) {
+    res.json(error);
+  }
+});
+
+router.get('/hearts/:id', async (req, res) => {
+  try {
+    const hearts = await HeartModel.find({
+      songId: req.params.id,
+    });
+    res.json(hearts);
   } catch (error) {
     res.json(error);
   }

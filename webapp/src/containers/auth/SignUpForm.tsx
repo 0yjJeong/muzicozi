@@ -17,7 +17,7 @@ import { Form } from '../../components/form';
 import { LabeledInput } from '../../components/labeledInput';
 import useInput from '../../hooks/useInput';
 import { Message } from '../../components/message';
-import { signup } from '../../lib/apis';
+import { signup } from '../../lib/queries/auth';
 
 function SignUpForm() {
   const signUpMutation = useMutation(signup);

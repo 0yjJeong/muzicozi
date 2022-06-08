@@ -4,8 +4,8 @@ import { drop, take } from 'ramda';
 import Card from '../../components/card/Card';
 import { CardList, ExpandedCardList } from '../../components/cardList';
 import { Song } from '../../../../shared/types';
-import { getArtistSongs } from '../../lib/apis';
 import useOnResize from '../../hooks/useOnResize';
+import { getArtistSongs } from '../../lib/queries/song';
 
 function CardListRenderer() {
   const { isLoading, data: songs } = useQuery(

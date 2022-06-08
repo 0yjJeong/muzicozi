@@ -6,7 +6,7 @@ import { LabeledInput } from '../../components/labeledInput';
 import useInput from '../../hooks/useInput';
 import { Message } from '../../components/message';
 import { Link, useNavigate } from 'react-router-dom';
-import { login } from '../../lib/apis';
+import { login } from '../../lib/queries';
 
 function LoginForm() {
   const loginMutation = useMutation(login);

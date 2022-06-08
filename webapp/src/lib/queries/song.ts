@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { Song } from '../../../shared/types';
-import { OverrideQueryFnCtx } from '../types/query';
-import { Searched } from '../types/transform';
+import { Song } from '../../../../shared/types';
+import { OverrideQueryFnCtx } from '../../types/query';
+import { Searched } from '../../types/transform';
 
 type GetSongParams = OverrideQueryFnCtx<number>;
 
@@ -36,32 +36,6 @@ export const search = async ({ queryKey }: SearchParams) => {
   const res = await axios.post<Searched[]>(
     `${process.env.REACT_APP_SERVER_HOST}/song/search`,
     { q }
-  );
-  return res.data;
-};
-
-type LoginParams = {
-  email: string;
-  password: string;
-};
-
-export const login = async (params: LoginParams) => {
-  const res = await axios.post(
-    `${process.env.REACT_APP_SERVER_HOST}/auth/login`,
-    params,
-    { withCredentials: true }
-  );
-  return res.data;
-};
-
-type SignUpParams = LoginParams & {
-  nickname: string;
-};
-
-export const signup = async (params: SignUpParams) => {
-  const res = await axios.post(
-    `${process.env.REACT_APP_SERVER_HOST}/auth/signup`,
-    params
   );
   return res.data;
 };

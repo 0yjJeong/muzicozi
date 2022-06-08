@@ -9,6 +9,8 @@ const auth = async (req: Request, _: Response, next: NextFunction) => {
   const valid = verify(token, config.SECRET_KEY);
   if (!valid) return next(new Error('Not authorized'));
 
+  req.body.userId = (valid as any).userId;
+
   next();
 };
 

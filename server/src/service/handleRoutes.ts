@@ -1,9 +1,9 @@
 import { Express } from 'express';
-import { songRouter } from '../routes';
-import { authRouter } from '../routes/auth';
+import { songRouter, authRouter, commentRouter } from '../routes';
 
 export const handleRoutes = (app: Express) => {
   app.use('/song', songRouter);
   app.use('/auth', authRouter);
+  app.use('/comment', commentRouter);
   return app;
 };

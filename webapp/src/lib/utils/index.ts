@@ -1,0 +1,1 @@
+export { getDateDiffIntoText } from './getDateDiffIntoText';

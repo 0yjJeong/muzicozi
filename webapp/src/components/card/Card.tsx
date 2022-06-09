@@ -6,7 +6,6 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Song } from '../../../../shared/types';
 import { ElbumImage, ArtistImage } from './CardImage';
-import CardLink from './CardLink';
 
 type CardProps = {
   song: Song;
@@ -44,6 +43,12 @@ const CardBlock = styled(Link)`
       overflow: hidden;
       margin-bottom: 0.4rem;
     }
+
+    .link {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
   }
 
   .footer {
@@ -69,11 +74,11 @@ function Card({ song }: CardProps) {
       <div className='content'>
         <div className='description'>{song.fullTitle}</div>
         <div className='link'>
-          <CardLink to={`/search/${song.title}`}>
+          <>
             <GiMicrophone />
             {song.primaryArtist.name}
             <ArtistImage imageUrl={song.primaryArtist.imageUrl} />
-          </CardLink>
+          </>
         </div>
       </div>
       <div className='footer'>

@@ -1,2 +1,3 @@
-export { login, signup } from './auth';
-export { getSong, getArtistSongs, search } from './song';
+export * from './auth';
+export * from './song';
+export * from './comment';

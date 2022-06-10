@@ -2,7 +2,7 @@ import React from 'react';
 import { useQuery } from 'react-query';
 import { Comment } from '../../components/comment';
 import { useLogged } from '../../hooks/useLogged';
-import { getComments } from '../../lib/queries';
+import { getComments } from '../../lib/apis';
 import CommentContainer from './CommentContainer';
 import { useId } from './hooks';
 

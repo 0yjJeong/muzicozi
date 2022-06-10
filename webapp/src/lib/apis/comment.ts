@@ -3,9 +3,7 @@ import { Comment } from '../../../../shared/types';
 import { OverrideQueryFnCtx } from '../../types/query';
 import { DefaultComment } from '../../types/transform';
 
-type GetCommentsParams = OverrideQueryFnCtx<number>;
-
-export const getComments = async ({ queryKey }: GetCommentsParams) => {
+export const getComments = async ({ queryKey }: OverrideQueryFnCtx<number>) => {
   const [_key, songId] = queryKey;
   const res = await axios.get<DefaultComment[]>(
     `${process.env.REACT_APP_SERVER_HOST}/comment/id/${songId}`
@@ -13,12 +11,7 @@ export const getComments = async ({ queryKey }: GetCommentsParams) => {
   return res.data;
 };
 
-type CommentParams = {
-  songId: number;
-  text: string;
-};
-
-export const addComment = async (params: CommentParams) => {
+export const addComment = async (params: Pick<Comment, 'songId' | 'text'>) => {
   const res = await axios.post<Comment>(
     `${process.env.REACT_APP_SERVER_HOST}/comment/add`,
     params,
@@ -27,7 +20,9 @@ export const addComment = async (params: CommentParams) => {
   return res.data;
 };
 
-export const updateComment = async (params: CommentParams) => {
+export const updateComment = async (
+  params: Pick<Comment, 'songId' | 'text'>
+) => {
   const res = await axios.post<Comment>(
     `${process.env.REACT_APP_SERVER_HOST}/comment/update`,
     params,

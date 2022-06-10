@@ -1,7 +1,7 @@
 import React from 'react';
 import { useQuery } from 'react-query';
 import { SongProfile } from '../../components/song';
-import { getSong } from '../../lib/queries';
+import { getSong } from '../../lib/apis';
 import HeartBoxContainer from './HeartBoxContainer';
 import { useId } from './hooks';
 

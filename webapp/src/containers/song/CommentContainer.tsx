@@ -2,7 +2,7 @@ import React, { FormEvent, useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import { MdEdit } from 'react-icons/md';
 import { RiDeleteBinFill } from 'react-icons/ri';
-import { removeComment, updateComment } from '../../lib/queries';
+import { removeComment, updateComment } from '../../lib/apis';
 import { Comment, CommentBox } from '../../components/comment';
 import { DefaultComment } from '../../types/transform';
 import ButtonBase from '../../components/common/button/BaseButton';

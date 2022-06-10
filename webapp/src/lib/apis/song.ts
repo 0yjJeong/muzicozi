@@ -1,37 +1,28 @@
 import axios from 'axios';
 import { Heart, Song } from '../../../../shared/types';
-import { OverrideQueryFnCtx } from '../../types/query';
+import { ArtistSongsOption, OverrideQueryFnCtx } from '../../types/query';
 import { Searched } from '../../types/transform';
 
-type GetSongParams = OverrideQueryFnCtx<number>;
-
-export const getSong = async ({ queryKey }: GetSongParams) => {
-  const [_key, params] = queryKey;
+export const getSong = async ({ queryKey }: OverrideQueryFnCtx<number>) => {
+  const [_key, songId] = queryKey;
   const res = await axios.get<Song>(
-    `${process.env.REACT_APP_SERVER_HOST}/song/id/${params}`
+    `${process.env.REACT_APP_SERVER_HOST}/song/id/${songId}`
   );
   return res.data;
 };
 
-type GetArtistSongsParams = OverrideQueryFnCtx<{
-  id: number;
-  sort?: 'title' | 'popularity';
-  page?: number;
-  perPage?: number;
-}>;
-
-export const getArtistSongs = async ({ queryKey }: GetArtistSongsParams) => {
+export const getArtistSongs = async ({
+  queryKey,
+}: OverrideQueryFnCtx<ArtistSongsOption>) => {
   const [_key, { id, ...rest }] = queryKey;
   const res = await axios.get<Array<Song>>(
     `${process.env.REACT_APP_SERVER_HOST}/song/artist-songs/${id}`,
-    { params: { ...rest } }
+    { ...(rest as any) }
   );
   return res.data;
 };
 
-type GetHeartsParams = OverrideQueryFnCtx<number | undefined>;
-
-export const getHearts = async ({ queryKey }: GetHeartsParams) => {
+export const getHearts = async ({ queryKey }: OverrideQueryFnCtx<number>) => {
   const [_key, songId] = queryKey;
   const res = await axios.get<Heart[]>(
     `${process.env.REACT_APP_SERVER_HOST}/song/hearts/${songId}`
@@ -39,9 +30,9 @@ export const getHearts = async ({ queryKey }: GetHeartsParams) => {
   return res.data;
 };
 
-type SearchParams = OverrideQueryFnCtx<string | undefined>;
-
-export const search = async ({ queryKey }: SearchParams) => {
+export const search = async ({
+  queryKey,
+}: OverrideQueryFnCtx<string | undefined>) => {
   const [_key, q] = queryKey;
   const res = await axios.post<Searched[]>(
     `${process.env.REACT_APP_SERVER_HOST}/song/search`,
@@ -50,9 +41,7 @@ export const search = async ({ queryKey }: SearchParams) => {
   return res.data;
 };
 
-type LikeParams = number;
-
-export const likeSong = async (songId: LikeParams) => {
+export const likeSong = async (songId: number) => {
   const res = await axios.post(
     `${process.env.REACT_APP_SERVER_HOST}/song/like`,
     { songId },
@@ -61,9 +50,7 @@ export const likeSong = async (songId: LikeParams) => {
   return res.data;
 };
 
-type UnlikeParams = number;
-
-export const unlikeSong = async (songId: UnlikeParams) => {
+export const unlikeSong = async (songId: number) => {
   const res = await axios.post(
     `${process.env.REACT_APP_SERVER_HOST}/song/unlike`,
     { songId },

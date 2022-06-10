@@ -5,7 +5,7 @@ import Card from '../../components/card/Card';
 import { CardList, ExpandedCardList } from '../../components/cardList';
 import { Song } from '../../../../shared/types';
 import useOnResize from '../../hooks/useOnResize';
-import { getArtistSongs } from '../../lib/queries/song';
+import { getArtistSongs } from '../../lib/apis/song';
 
 function CardListRenderer() {
   const { isLoading, data: songs } = useQuery(

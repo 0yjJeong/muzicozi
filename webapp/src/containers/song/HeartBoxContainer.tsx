@@ -4,7 +4,7 @@ import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { Heart } from '../../../../shared/types';
 import { HeartBox } from '../../components/song';
 import { useLogged } from '../../hooks/useLogged';
-import { getHearts, likeSong, unlikeSong } from '../../lib/queries/song';
+import { getHearts, likeSong, unlikeSong } from '../../lib/apis/song';
 
 type HeartBoxContainerProps = {
   songId: number;

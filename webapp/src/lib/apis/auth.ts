@@ -1,11 +1,7 @@
 import axios from 'axios';
+import { User } from '../../../../shared/types';
 
-type LoginParams = {
-  email: string;
-  password: string;
-};
-
-export const login = async (params: LoginParams) => {
+export const login = async (params: Omit<User, 'id' | 'nickname'>) => {
   const res = await axios.post(
     `${process.env.REACT_APP_SERVER_HOST}/auth/login`,
     params,
@@ -14,11 +10,7 @@ export const login = async (params: LoginParams) => {
   return res.data;
 };
 
-type SignUpParams = LoginParams & {
-  nickname: string;
-};
-
-export const signup = async (params: SignUpParams) => {
+export const signup = async (params: Omit<User, 'id'>) => {
   const res = await axios.post(
     `${process.env.REACT_APP_SERVER_HOST}/auth/signup`,
     params

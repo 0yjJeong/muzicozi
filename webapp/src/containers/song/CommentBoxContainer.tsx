@@ -2,7 +2,7 @@ import React, { FormEvent, useRef } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import { CommentBox } from '../../components/comment';
 import ButtonBase from '../../components/common/button/BaseButton';
-import { addComment } from '../../lib/queries';
+import { addComment } from '../../lib/apis';
 import { useId } from './hooks';
 
 function CommentBoxContainer() {

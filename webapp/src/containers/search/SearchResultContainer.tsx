@@ -2,7 +2,7 @@ import React from 'react';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import SearchResult from '../../components/search/SearchResult';
-import { search } from '../../lib/queries/song';
+import { search } from '../../lib/apis/song';
 
 function SearchResultContainer() {
   const { q } = useParams<{ q: string }>();

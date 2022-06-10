@@ -54,7 +54,7 @@ router.get('/artist-songs/:id', async (req, res) => {
       },
     });
 
-    const groupedComments = groupBy(prop('songId'), comments);
+    const groupedComments = groupBy(prop('songId') as any, comments);
 
     const normalizeSongs = map(
       normalize([

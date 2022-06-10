@@ -15,7 +15,7 @@ export type Heart = {
 export type Comment = {
   id: string;
   userId: string;
-  songId: string;
+  songId: number;
   text: string;
   replyTo: string;
   createdAt: Date;

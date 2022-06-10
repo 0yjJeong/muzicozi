@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 import { Song } from '../../../../shared/types';
-import { ProfileImage } from '../card/CardImage';
+import { ProfileImage } from '../common/image';
 
 const ProfileBlock = styled.div`
   text-align: center;

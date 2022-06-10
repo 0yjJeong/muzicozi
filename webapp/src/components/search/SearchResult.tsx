@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { Searched } from '../../types/transform';
-import { SearchImage } from '../card/CardImage';
+import { SearchImage } from '../common/image';
 
 type SearchResultProps = {
   searched: Searched[] | undefined;

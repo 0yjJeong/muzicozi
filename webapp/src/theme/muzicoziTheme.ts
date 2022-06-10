@@ -68,9 +68,9 @@ export const theme = {
     },
   },
   media: {
-    xlarge: mediaQuery(1200),
-    large: mediaQuery(1024),
+    xlarge: mediaQuery(1280),
+    large: mediaQuery(992),
     medium: mediaQuery(768),
-    small: mediaQuery(376),
+    small: mediaQuery(480),
   },
 };

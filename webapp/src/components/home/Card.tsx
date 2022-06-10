@@ -1,17 +1,13 @@
-import React from 'react';
+import React, { MouseEventHandler, useMemo } from 'react';
 import { GiMicrophone } from 'react-icons/gi';
 import { BiCalendarAlt, BiComment } from 'react-icons/bi';
-import { AiOutlineHeart } from 'react-icons/ai';
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Song } from '../../../../shared/types';
 import { ElbumImage, ArtistImage } from '../common/image';
 
-type CardProps = {
-  song: Song;
-};
-
-const CardBlock = styled(Link)`
+const CardBlock = styled(Link)<{ isliked: string }>`
   height: 20rem;
   box-sizing: border-box;
   border: 1.4px solid ${(p) => p.theme.palette.border};
@@ -61,12 +57,35 @@ const CardBlock = styled(Link)`
       display: flex;
       gap: 0.4rem;
     }
+
+    .heart {
+      svg {
+        ${(p) => p.isliked === 'true' && 'color: #fc03c2;'}
+      }
+
+      &:hover {
+        svg {
+          transform: scale(1.2);
+        }
+      }
+    }
   }
 `;
 
-function Card({ song }: CardProps) {
+type CardProps = {
+  song: Song;
+  isLiked: boolean;
+  handleLike: MouseEventHandler;
+};
+
+function Card({ song, isLiked, handleLike }: CardProps) {
+  const heartsCount = useMemo(
+    () => song.hearts.length + Number(isLiked),
+    [isLiked]
+  );
+
   return (
-    <CardBlock to={`/song/${song.id}`}>
+    <CardBlock to={`/song/${song.id}`} isliked={String(isLiked)}>
       <div className='header'>
         <ElbumImage imageUrl={song.songArtImageUrl} />
         <div>{song.title}</div>
@@ -82,9 +101,9 @@ function Card({ song }: CardProps) {
         </div>
       </div>
       <div className='footer'>
-        <div>
-          <AiOutlineHeart />
-          {song.hearts.length}
+        <div className='heart' onClick={handleLike}>
+          {isLiked ? <AiFillHeart /> : <AiOutlineHeart />}
+          {heartsCount}
         </div>
         <div>
           <BiComment />

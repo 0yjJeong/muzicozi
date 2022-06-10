@@ -5,7 +5,7 @@ import { AiOutlineHeart } from 'react-icons/ai';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Song } from '../../../../shared/types';
-import { ElbumImage, ArtistImage } from './CardImage';
+import { ElbumImage, ArtistImage } from '../common/image';
 
 type CardProps = {
   song: Song;

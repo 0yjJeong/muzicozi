@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import styled, { css } from 'styled-components';
 import { Song } from '../../../../shared/types';
-import Card from '../card/Card';
+import Card from './Card';
 import { cardListStyle } from './CardList';
 
 type ExpandedCardListProps = {

@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 
-const CategoryBlock = styled.div`
+const PanelBlock = styled.div`
   height: 100%;
   overflow: hidden;
 
@@ -23,13 +23,13 @@ type CategoryProps = {
   children: ReactElement[];
 };
 
-function Category({ title, children }: CategoryProps) {
+function Panel({ title, children }: CategoryProps) {
   return (
-    <CategoryBlock>
+    <PanelBlock>
       <div className='title'>{title}</div>
       <ul>{children}</ul>
-    </CategoryBlock>
+    </PanelBlock>
   );
 }
 
-export default Category;
+export default Panel;

@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { drop, take } from 'ramda';
-import Card from '../../components/card/Card';
-import { CardList, ExpandedCardList } from '../../components/cardList';
+import Card from '../../components/home/Card';
+import { CardList, ExpandedCardList } from '../../components/home';
 import { Song } from '../../../../shared/types';
 import useOnResize from '../../hooks/useOnResize';
 import { getArtistSongs } from '../../lib/apis/song';

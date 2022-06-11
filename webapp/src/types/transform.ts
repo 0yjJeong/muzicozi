@@ -5,6 +5,12 @@ export type Searched = Omit<
   'fullTitle' | 'releaseDateForDisplay' | 'hearts' | 'comments'
 >;
 
+export type LikedSongForDisplay = {
+  id: number;
+  title: string;
+  songArtImageUrl: string;
+};
+
 export interface DefaultComment extends Omit<Comment, 'user'> {
   user: User;
 }

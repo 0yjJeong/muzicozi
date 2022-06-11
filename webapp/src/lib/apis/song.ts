@@ -1,12 +1,20 @@
 import axios from 'axios';
 import { Heart, Song } from '../../../../shared/types';
 import { ArtistSongsOption, OverrideQueryFnCtx } from '../../types/query';
-import { Searched } from '../../types/transform';
+import { LikedSongForDisplay, Searched } from '../../types/transform';
 
 export const getSong = async ({ queryKey }: OverrideQueryFnCtx<number>) => {
   const [_key, songId] = queryKey;
   const res = await axios.get<Song>(
     `${process.env.REACT_APP_SERVER_HOST}/song/id/${songId}`
+  );
+  return res.data;
+};
+
+export const getLikedSongs = async () => {
+  const res = await axios.get<LikedSongForDisplay[]>(
+    `${process.env.REACT_APP_SERVER_HOST}/song/liked`,
+    { withCredentials: true }
   );
   return res.data;
 };

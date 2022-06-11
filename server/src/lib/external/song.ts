@@ -30,6 +30,13 @@ export const getSong = async ({
   return response.data;
 };
 
+type GetSongsParams = {
+  ids: string[];
+};
+
+export const getSongs = ({ ids }: GetSongsParams) =>
+  Promise.all(ids.map((id) => getSong({ id })));
+
 type GetArtistSongsParams = {
   artistId: number;
   sort?: 'title' | 'popularity';

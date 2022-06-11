@@ -1,10 +1,15 @@
 import express from 'express';
 import { JwtPayload, verify } from 'jsonwebtoken';
-import { groupBy, map, mergeAll, pluck, prop } from 'ramda';
+import { groupBy, map, mergeAll, pipe, pluck, prop } from 'ramda';
 import { Song } from '../../../../shared/types';
 import { normalize } from '../../helpers/normalize';
 import config from '../../lib/config';
-import { getArtistSongs, getSong, search } from '../../lib/external/song';
+import {
+  getArtistSongs,
+  getSong,
+  getSongs,
+  search,
+} from '../../lib/external/song';
 import { ids } from '../../lib/utils';
 import auth from '../../middlewares/auth';
 import { HeartModel, CommentModel } from '../../model';
@@ -31,6 +36,24 @@ router.get('/id/:id', async (req, res) => {
 
     res.json(mergeAll([song, { hearts }, { comments }]));
   } catch (error) {}
+});
+
+router.get('/liked', auth, async (req, res) => {
+  try {
+    const { userId } = req.body;
+    const hearts = await HeartModel.find({ userId })
+      .sort({ createdAt: -1 })
+      .exec();
+    const heartIds = map(prop('songId'))(hearts) as string[];
+    const value = await getSongs({ ids: heartIds });
+    const songs = map(pipe(prop('response') as any, prop('song')))(
+      value
+    ) as any[];
+    const result = map(normalize(['id', 'title', 'song_art_image_url']))(songs);
+    res.json(result);
+  } catch (error) {
+    res.json(error);
+  }
 });
 
 router.get('/artist-songs/:id', async (req, res) => {

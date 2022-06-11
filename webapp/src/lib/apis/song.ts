@@ -17,7 +17,7 @@ export const getArtistSongs = async ({
   const [_key, { id, ...rest }] = queryKey;
   const res = await axios.get<Array<Song>>(
     `${process.env.REACT_APP_SERVER_HOST}/song/artist-songs/${id}`,
-    { ...(rest as any) }
+    { ...(rest as any), withCredentials: true }
   );
   return res.data;
 };

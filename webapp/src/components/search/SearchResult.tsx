@@ -1,6 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
+import { get, set } from '../../lib/utils';
 import { Searched } from '../../types/transform';
 import { SearchImage } from '../common/image';
 
@@ -9,21 +10,34 @@ type SearchResultProps = {
 };
 
 function SearchResult({ searched }: SearchResultProps) {
+  const navigate = useNavigate();
   if (!searched) return null;
   return (
     <Wrapper>
       {searched.map((song) => (
-        <Link key={song.id} to={`/song/${song.id}`}>
-          <Element>
-            <div className='left'>
-              <SearchImage imageUrl={song.songArtImageUrl} />
-            </div>
-            <div className='right'>
-              <div className='title'>{song.title}</div>
-              <div className='artist'>{song.primaryArtist.name}</div>
-            </div>
-          </Element>
-        </Link>
+        <Element
+          key={song.id}
+          onClick={(e) => {
+            e.preventDefault();
+            const history = get('history');
+            const value = {
+              keyword: song.title,
+              date: new Date(),
+            };
+            history
+              ? set('history', [value, ...history])
+              : set('history', [value]);
+            navigate(`/song/${song.id}`);
+          }}
+        >
+          <div className='left'>
+            <SearchImage imageUrl={song.songArtImageUrl} />
+          </div>
+          <div className='right'>
+            <div className='title'>{song.title}</div>
+            <div className='artist'>{song.primaryArtist.name}</div>
+          </div>
+        </Element>
       ))}
     </Wrapper>
   );

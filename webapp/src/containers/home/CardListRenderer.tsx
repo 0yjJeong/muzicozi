@@ -6,6 +6,7 @@ import { getArtistSongs, likeSong, unlikeSong } from '../../lib/apis/song';
 import LikedSongsPanel from './LikedSongsPanel';
 import { getMyHearts } from '../../lib/apis';
 import { MyHeartContext } from './context';
+import HistoryPanel from './HistoryPanel';
 
 function CardListRenderer() {
   const queryClient = useQueryClient();
@@ -35,7 +36,7 @@ function CardListRenderer() {
 
   return (
     <MyHeartContext.Provider value={myHearts ?? []}>
-      <CardList HeartPanel={LikedSongsPanel} SearchHistoryPanel={() => <></>}>
+      <CardList HeartPanel={LikedSongsPanel} SearchHistoryPanel={HistoryPanel}>
         {songs.map((song) => {
           const isLiked = !!find(propEq('songId', song.id))(myHearts ?? []);
           return (

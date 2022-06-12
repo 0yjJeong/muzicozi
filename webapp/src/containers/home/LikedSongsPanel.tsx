@@ -4,10 +4,14 @@ import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { Panel, LikedSong } from '../../components/home';
 import { getLikedSongs, unlikeSong } from '../../lib/apis';
 import { MyHeartContext } from './context';
+import LikedSongSkeleton from '../../components/home/LikedSongSkeleton';
 
 export function LikedSongsPanel() {
   const queryClient = useQueryClient();
-  const { data: likedSongs } = useQuery('liked-songs', getLikedSongs);
+  const { isLoading, data: likedSongs } = useQuery(
+    'liked-songs',
+    getLikedSongs
+  );
 
   const unlikeSongMutation = useMutation(unlikeSong, {
     onSuccess: () => {
@@ -18,14 +22,19 @@ export function LikedSongsPanel() {
   return (
     <MyHeartContext.Consumer>
       {(myHearts) => {
-        const filteredLinkedSongs = likedSongs?.filter(
-          (song) => !!find(propEq('songId', song.id))(myHearts ?? [])
-        );
         return (
           <Panel title='Songs you like'>
-            {filteredLinkedSongs && filteredLinkedSongs.length ? (
+            {!myHearts.length ? (
+              <li className='message'>No Songs to Display.</li>
+            ) : isLoading || !likedSongs ? (
               <>
-                {filteredLinkedSongs.map((song) => {
+                {myHearts.map((heart) => (
+                  <LikedSongSkeleton key={heart.id} />
+                ))}
+              </>
+            ) : (
+              <>
+                {likedSongs!.map((song) => {
                   if (!!find(propEq('songId', song.id))(myHearts ?? [])) {
                     return (
                       <LikedSong
@@ -41,8 +50,6 @@ export function LikedSongsPanel() {
                   }
                 })}
               </>
-            ) : (
-              <li className='message'>No Songs to Display.</li>
             )}
           </Panel>
         );

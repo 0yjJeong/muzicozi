@@ -9,6 +9,9 @@ export const cardListStyle = css`
   margin-bottom: 1.6rem;
   grid-template-columns: repeat(1, 1fr);
   max-width: 1020px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
 
   ${(p) => css`
     ${p.theme.media.small} {

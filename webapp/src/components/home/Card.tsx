@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, useMemo } from 'react';
+import React, { MouseEventHandler, useMemo, useRef } from 'react';
 import { GiMicrophone } from 'react-icons/gi';
 import { BiCalendarAlt, BiComment } from 'react-icons/bi';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Song } from '../../../../shared/types';
 import { ElbumImage, ArtistImage } from '../common/image';
+import useHover from './hooks/useHover';
 
 const CardBlock = styled(Link)<{ isliked: string }>`
   height: 20rem;
@@ -79,9 +80,23 @@ type CardProps = {
 };
 
 function Card({ song, isLiked, handleLike }: CardProps) {
+  const heartRef = useRef<HTMLDivElement>(null);
+  const [hover] = useHover(heartRef.current);
   const heartsCount = useMemo(
     () => song.hearts.length + Number(isLiked),
     [isLiked]
+  );
+
+  const heartFragment = isLiked ? (
+    hover ? (
+      <AiOutlineHeart />
+    ) : (
+      <AiFillHeart />
+    )
+  ) : hover ? (
+    <AiFillHeart />
+  ) : (
+    <AiOutlineHeart />
   );
 
   return (
@@ -101,8 +116,8 @@ function Card({ song, isLiked, handleLike }: CardProps) {
         </div>
       </div>
       <div className='footer'>
-        <div className='heart' onClick={handleLike}>
-          {isLiked ? <AiFillHeart /> : <AiOutlineHeart />}
+        <div className='heart' ref={heartRef} onClick={handleLike}>
+          {heartFragment}
           {heartsCount}
         </div>
         <div>

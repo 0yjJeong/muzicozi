@@ -1,6 +1,6 @@
 import React from 'react';
 import { useQuery } from 'react-query';
-import { SongProfile } from '../../components/song';
+import { SongProfile, SongProfileSkeleton } from '../../components/song';
 import { getSong } from '../../lib/apis';
 import HeartBoxContainer from './HeartBoxContainer';
 import { useId } from './hooks';
@@ -12,7 +12,7 @@ function SongView() {
     retry: false,
   });
 
-  if (isLoading || !song) return null;
+  if (isLoading || !song) return <SongProfileSkeleton />;
 
   return (
     <SongProfile song={song}>

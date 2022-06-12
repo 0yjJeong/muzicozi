@@ -11,6 +11,7 @@ function HistoryPanel() {
     <Panel title='History'>
       {histories.current.map((h) => (
         <History
+          key={h.keyword}
           keyword={h.keyword}
           dateForDisplay={getDateDiffIntoText(h.date)}
         />

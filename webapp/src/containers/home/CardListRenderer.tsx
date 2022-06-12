@@ -54,8 +54,8 @@ function CardListRenderer() {
                 />
               );
             })
-          : times(identity, 20).map(() => {
-              return <CardSkeleton />;
+          : times(identity, 20).map((index) => {
+              return <CardSkeleton key={index} />;
             })}
       </CardList>
     </MyHeartContext.Provider>

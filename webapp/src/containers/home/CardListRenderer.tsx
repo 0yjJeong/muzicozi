@@ -1,6 +1,6 @@
 import React from 'react';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { find, identity, propEq, times } from 'ramda';
+import { filter, find, identity, propEq, times } from 'ramda';
 import { Card, CardList } from '../../components/home';
 import { getArtistSongs, likeSong, unlikeSong } from '../../lib/apis/song';
 import LikedSongsPanel from './LikedSongsPanel';
@@ -8,18 +8,20 @@ import { getMyHearts } from '../../lib/apis';
 import { MyHeartContext } from './context';
 import HistoryPanel from './HistoryPanel';
 import CardSkeleton from '../../components/home/CardSkeleton';
+import { useLogged } from '../../hooks/useLogged';
+import { Heart } from '../../../../shared/types';
 
 function CardListRenderer() {
   const queryClient = useQueryClient();
-  const { data: myHearts } = useQuery('my-hearts', getMyHearts);
+  const logged = useLogged();
   const { data: songs } = useQuery(
     ['artist-songs', { id: 16775 }],
-    getArtistSongs,
-    {
-      retry: false,
-      enabled: !!myHearts,
-    }
+    getArtistSongs
   );
+  const { data: myHearts } = useQuery('my-hearts', getMyHearts, {
+    enabled: !!logged,
+    retry: false,
+  });
 
   const likeSongMutation = useMutation(likeSong, {
     onSuccess: () => {
@@ -39,11 +41,15 @@ function CardListRenderer() {
         {songs
           ? songs.map((song) => {
               const isLiked = !!find(propEq('songId', song.id))(myHearts ?? []);
+              const hearts = filter(
+                (heart: Heart) => heart.userId !== logged?.userId
+              )(song.hearts);
               return (
                 <Card
                   key={song.id}
                   song={song}
                   isLiked={isLiked}
+                  hearts={hearts}
                   handleLike={(e) => {
                     e.stopPropagation();
                     e.preventDefault();

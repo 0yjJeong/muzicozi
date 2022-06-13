@@ -4,7 +4,7 @@ import { BiCalendarAlt, BiComment } from 'react-icons/bi';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { Song } from '../../../../shared/types';
+import { Heart, Song } from '../../../../shared/types';
 import { ElbumImage, ArtistImage } from '../common/image';
 import useHover from './hooks/useHover';
 
@@ -75,16 +75,17 @@ const CardBlock = styled(Link)<{ isliked: string }>`
 
 type CardProps = {
   song: Song;
+  hearts: Heart[];
   isLiked: boolean;
   handleLike: MouseEventHandler;
 };
 
-function Card({ song, isLiked, handleLike }: CardProps) {
+function Card({ song, isLiked, hearts, handleLike }: CardProps) {
   const heartRef = useRef<HTMLDivElement>(null);
   const [hover] = useHover(heartRef.current);
   const heartsCount = useMemo(
-    () => song.hearts.length + Number(isLiked),
-    [isLiked]
+    () => hearts.length + Number(isLiked),
+    [isLiked, hearts.length]
   );
 
   const heartFragment = isLiked ? (

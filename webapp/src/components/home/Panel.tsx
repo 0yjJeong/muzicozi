@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 
 const PanelBlock = styled.div`
-  height: 250px;
+  height: 168px;
   overflow: hidden;
   padding: 1.6rem;
 
@@ -18,7 +18,7 @@ const PanelBlock = styled.div`
     padding: 0;
     margin: 0;
     overflow: auto;
-    height: calc(100% - 42px);
+    height: calc(100% - 5.2rem);
 
     .message {
       ${(p) => p.theme.typography.caption}

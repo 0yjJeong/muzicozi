@@ -5,6 +5,7 @@ import { Heart } from '../../../../shared/types';
 import { HeartBox } from '../../components/song';
 import { useLogged } from '../../hooks/useLogged';
 import { getHearts, likeSong, unlikeSong } from '../../lib/apis/song';
+import { useNavigate } from 'react-router-dom';
 
 type HeartBoxContainerProps = {
   songId: number;
@@ -30,20 +31,30 @@ function HeartBoxContainer({ songId, initialHearts }: HeartBoxContainerProps) {
   });
 
   const logged = useLogged();
+  const navigation = useNavigate();
 
   const liked = useMemo(
-    () => any(test(/a/g))(map(prop('userId'))(hearts!)), // Hearts must be defined.
+    () =>
+      any(test(new RegExp(logged?.userId || '')))(map(prop('userId'))(hearts!)), // Hearts must be defined.
     [logged, hearts]
   );
 
-  const like = () => likeSongMutation.mutate(songId);
-
-  const unlike = () => unlikeSongMutation.mutate(songId);
-
-  const onClick = useMemo(() => (liked ? unlike : like), [liked, unlike, like]);
-
   return (
-    <HeartBox count={hearts?.length ?? 0} liked={liked} onClick={onClick} />
+    <HeartBox
+      count={hearts?.length ?? 0}
+      liked={liked}
+      onClick={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (logged) {
+          liked
+            ? unlikeSongMutation.mutate(songId)
+            : likeSongMutation.mutate(songId);
+        } else {
+          navigation('/login');
+        }
+      }}
+    />
   );
 }
 

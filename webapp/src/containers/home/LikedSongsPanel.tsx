@@ -5,12 +5,15 @@ import { Panel, LikedSong } from '../../components/home';
 import { getLikedSongs, unlikeSong } from '../../lib/apis';
 import { MyHeartContext } from './context';
 import LikedSongSkeleton from '../../components/home/LikedSongSkeleton';
+import { useLogged } from '../../hooks/useLogged';
 
 export function LikedSongsPanel() {
   const queryClient = useQueryClient();
+  const logged = useLogged();
   const { isLoading, data: likedSongs } = useQuery(
     'liked-songs',
-    getLikedSongs
+    getLikedSongs,
+    { enabled: !!logged }
   );
 
   const unlikeSongMutation = useMutation(unlikeSong, {

@@ -9,9 +9,11 @@ import { MyHeartContext } from './context';
 import HistoryPanel from './HistoryPanel';
 import CardSkeleton from '../../components/home/CardSkeleton';
 import { useLogged } from '../../hooks/useLogged';
+import { useNavigate } from 'react-router-dom';
 import { Heart } from '../../../../shared/types';
 
 function CardListRenderer() {
+  const navigation = useNavigate();
   const queryClient = useQueryClient();
   const logged = useLogged();
   const { data: songs } = useQuery(
@@ -53,9 +55,13 @@ function CardListRenderer() {
                   handleLike={(e) => {
                     e.stopPropagation();
                     e.preventDefault();
-                    isLiked
-                      ? unlikeSongMutation.mutate(song.id)
-                      : likeSongMutation.mutate(song.id);
+                    if (logged) {
+                      isLiked
+                        ? unlikeSongMutation.mutate(song.id)
+                        : likeSongMutation.mutate(song.id);
+                    } else {
+                      navigation('/login');
+                    }
                   }}
                 />
               );

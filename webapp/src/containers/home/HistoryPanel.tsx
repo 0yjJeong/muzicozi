@@ -9,13 +9,17 @@ function HistoryPanel() {
 
   return (
     <Panel title='History'>
-      {histories.current.map((h) => (
-        <History
-          key={h.keyword}
-          keyword={h.keyword}
-          dateForDisplay={getDateDiffIntoText(h.date)}
-        />
-      ))}
+      {histories.current.length ? (
+        histories.current.map((h) => (
+          <History
+            key={h.keyword}
+            keyword={h.keyword}
+            dateForDisplay={getDateDiffIntoText(h.date)}
+          />
+        ))
+      ) : (
+        <li className='message'>No recent searches.</li>
+      )}
     </Panel>
   );
 }

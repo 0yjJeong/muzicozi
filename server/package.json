@@ -3,8 +3,9 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "build": "cross-env NODE_ENV=production tsc",
-    "dev": "cross-env NODE_ENV=development ts-node-dev --respawn src"
+    "build": "tsc",
+    "dev": "cross-env NODE_ENV=development ts-node-dev --respawn src",
+    "start": "node dist"
   },
   "dependencies": {
     "axios": "^0.27.2",

@@ -1,7 +1,7 @@
 import express from 'express';
 import { JwtPayload, verify } from 'jsonwebtoken';
 import { groupBy, map, mergeAll, pipe, pluck, prop } from 'ramda';
-import { Song } from '../../../../shared/types';
+import { Song } from '../../types';
 import { normalize } from '../../helpers/normalize';
 import config from '../../lib/config';
 import {

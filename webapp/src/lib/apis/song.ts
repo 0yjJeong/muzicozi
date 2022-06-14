@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Heart, Song } from '../../../../shared/types';
+import { Heart, Song } from '../../types/basic';
 import { ArtistSongsOption, OverrideQueryFnCtx } from '../../types/query';
 import { LikedSongForDisplay, Searched } from '../../types/transform';
 

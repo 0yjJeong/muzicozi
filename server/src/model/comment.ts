@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import type { Comment } from '../../../shared/types';
+import type { Comment } from '../types';
 
 const commentSchema = new mongoose.Schema({
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },

@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import type { Heart } from '../../../shared/types';
+import type { Heart } from '../types';
 
 const heartSchema = new mongoose.Schema({
   userId: { type: String, required: true },

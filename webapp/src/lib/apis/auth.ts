@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { User } from '../../../../shared/types';
+import { User } from '../../types/basic';
 
 export const login = async (params: Omit<User, 'id' | 'nickname'>) => {
   const res = await axios.post(

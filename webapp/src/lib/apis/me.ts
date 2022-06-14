@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Heart } from '../../../../shared/types';
+import { Heart } from '../../types/basic';
 
 export const getMyHearts = async () => {
   const res = await axios.get<Heart[]>(

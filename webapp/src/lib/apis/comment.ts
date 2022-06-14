@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Comment } from '../../../../shared/types';
+import { Comment } from '../../types/basic';
 import { OverrideQueryFnCtx } from '../../types/query';
 import { DefaultComment } from '../../types/transform';
 

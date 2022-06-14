@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Song } from '../../../../shared/types';
+import { Song } from '../../types';
 import config from '../config';
 
 type Fetched<T> = {

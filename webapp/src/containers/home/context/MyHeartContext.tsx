@@ -1,4 +1,4 @@
 import { createContext } from 'react';
-import { Heart } from '../../../../../shared/types';
+import { Heart } from '../../../types';
 
 export const MyHeartContext = createContext<Heart[]>([]);

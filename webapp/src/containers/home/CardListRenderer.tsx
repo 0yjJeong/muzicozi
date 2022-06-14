@@ -10,7 +10,7 @@ import HistoryPanel from './HistoryPanel';
 import CardSkeleton from '../../components/home/CardSkeleton';
 import { useLogged } from '../../hooks/useLogged';
 import { useNavigate } from 'react-router-dom';
-import { Heart } from '../../../../shared/types';
+import { Heart } from '../../types';
 
 function CardListRenderer() {
   const navigation = useNavigate();

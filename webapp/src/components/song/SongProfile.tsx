@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
-import { Song } from '../../../../shared/types';
+import { Song } from '../../types';
 import { ProfileImage } from '../common/image';
 
 const ProfileBlock = styled.div`

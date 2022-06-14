@@ -4,7 +4,7 @@ import { BiCalendarAlt, BiComment } from 'react-icons/bi';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { Heart, Song } from '../../../../shared/types';
+import { Heart, Song } from '../../types';
 import { ElbumImage, ArtistImage } from '../common/image';
 import useHover from './hooks/useHover';
 

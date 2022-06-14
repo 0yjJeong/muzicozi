@@ -1,4 +1,4 @@
-import { Song, Comment, User } from '../../../shared/types';
+import { Song, Comment, User } from './basic';
 
 export type Searched = Omit<
   Song,

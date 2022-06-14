@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { any, map, prop, test } from 'ramda';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { Heart } from '../../../../shared/types';
+import { Heart } from '../../types';
 import { HeartBox } from '../../components/song';
 import { useLogged } from '../../hooks/useLogged';
 import { getHearts, likeSong, unlikeSong } from '../../lib/apis/song';

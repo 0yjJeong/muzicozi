@@ -5,13 +5,11 @@ import config from '../lib/config';
 import { handleMiddlewares } from './handleMiddlewares';
 import { handleRoutes } from './handleRoutes';
 
-const buildStartApp = curry((port: number, host: string, app: Express) =>
-  app.listen(port, host, () =>
-    console.log(`server is listening on port ${port}`)
-  )
+const buildStartApp = curry((port: number, app: Express) =>
+  app.listen(port, () => console.log(`server is listening on port ${port}`))
 );
 
-export const startApp = buildStartApp(config.PORT)(config.HOST);
+export const startApp = buildStartApp(config.PORT);
 
 export const setupApp = pipe(handleMiddlewares, handleRoutes);
 

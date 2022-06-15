@@ -37,11 +37,6 @@ router.post('/login', async (req, res) => {
       }
     );
 
-    const date = new Date();
-    res.cookie('x-access-token', token, {
-      expires: new Date(date.setTime(date.getTime() + 1000 * 60 * 60 * 24 * 7)),
-      httpOnly: true,
-    });
     res.json(token);
   } catch (error) {
     res.json({ error: (error as any).message });

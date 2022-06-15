@@ -1,9 +1,7 @@
 import express from 'express';
-import { JwtPayload, verify } from 'jsonwebtoken';
 import { groupBy, map, mergeAll, pipe, pluck, prop } from 'ramda';
 import { Song } from '../../types';
 import { normalize } from '../../helpers/normalize';
-import config from '../../lib/config';
 import {
   getArtistSongs,
   getSong,
@@ -65,17 +63,9 @@ router.get('/artist-songs/:id', async (req, res) => {
 
     const songIds = ids(value.response.songs);
 
-    let decoded;
-    if (req.cookies['x-access-token']) {
-      decoded = verify(req.cookies['x-access-token'], config.SECRET_KEY);
-    }
-
     const hearts = await HeartModel.find({
       songId: {
         $in: [...songIds],
-      },
-      userId: {
-        $ne: (decoded as JwtPayload)?.userId,
       },
     });
 

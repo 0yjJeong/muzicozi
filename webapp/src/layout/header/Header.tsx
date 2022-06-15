@@ -45,20 +45,22 @@ const Header: FC<HeaderProps> = ({ logo = 'logo.png' }) => {
 
   return (
     <HeaderBlock>
-      <div className='left'>
-        <LogoIcon />
-      </div>
-      <div className='right'>
-        {SearchFragment}
-        {logged ? (
-          <>{UserFragment}</>
-        ) : (
-          <>
-            {LoginFragment}
-            {SignUpFragment}
-          </>
-        )}
-      </div>
+      <Inner>
+        <div className='left'>
+          <LogoIcon />
+        </div>
+        <div className='right'>
+          {SearchFragment}
+          {logged ? (
+            <>{UserFragment}</>
+          ) : (
+            <>
+              {LoginFragment}
+              {SignUpFragment}
+            </>
+          )}
+        </div>
+      </Inner>
     </HeaderBlock>
   );
 };
@@ -66,14 +68,20 @@ const Header: FC<HeaderProps> = ({ logo = 'logo.png' }) => {
 const HeaderBlock = styled.header`
   padding-left: 10px;
   padding-right: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  margin: auto;
   height: 56px;
   text-align: center;
   position: sticky;
   top: 0;
   background: ${(p) => p.theme.palette.highlight};
+`;
+
+const Inner = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1400px;
+  margin: auto;
 
   .right {
     display: flex;

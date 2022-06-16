@@ -46,7 +46,7 @@ function SignUpForm() {
         [
           new RegExp(/^[a-zA-Z0-9._-]+@[a-zA-Z]+?.[a-zA-Z]{2,3}(.[a-z]{2})?$/g),
           new RegExp(/^(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z0-9]{8,24}$/g),
-          new RegExp(/^[a-z0-9]{4,12}$/),
+          new RegExp(/^[a-zA-Z0-9]{4,12}$/),
         ]
       ),
       values

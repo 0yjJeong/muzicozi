@@ -5,12 +5,12 @@ import { instance } from './instance';
 
 export const getSong = async ({ queryKey }: OverrideQueryFnCtx<number>) => {
   const [_key, songId] = queryKey;
-  const res = await instance.get<Song>(`/song/id/${songId}`);
+  const res = await instance().get<Song>(`/song/id/${songId}`);
   return res.data;
 };
 
 export const getLikedSongs = async () => {
-  const res = await instance.get<LikedSongForDisplay[]>(`/song/liked`, {
+  const res = await instance().get<LikedSongForDisplay[]>(`/song/liked`, {
     withCredentials: true,
   });
   return res.data;
@@ -20,7 +20,7 @@ export const getArtistSongs = async ({
   queryKey,
 }: OverrideQueryFnCtx<ArtistSongsOption>) => {
   const [_key, { id, ...rest }] = queryKey;
-  const res = await instance.get<Array<Song>>(`/song/artist-songs/${id}`, {
+  const res = await instance().get<Array<Song>>(`/song/artist-songs/${id}`, {
     ...(rest as any),
     withCredentials: true,
   });
@@ -29,7 +29,7 @@ export const getArtistSongs = async ({
 
 export const getHearts = async ({ queryKey }: OverrideQueryFnCtx<number>) => {
   const [_key, songId] = queryKey;
-  const res = await instance.get<Heart[]>(`/song/hearts/${songId}`, {});
+  const res = await instance().get<Heart[]>(`/song/hearts/${songId}`, {});
   return res.data;
 };
 
@@ -37,12 +37,12 @@ export const search = async ({
   queryKey,
 }: OverrideQueryFnCtx<string | undefined>) => {
   const [_key, q] = queryKey;
-  const res = await instance.post<Searched[]>(`/song/search`, { q });
+  const res = await instance().post<Searched[]>(`/song/search`, { q });
   return res.data;
 };
 
 export const likeSong = async (songId: number) => {
-  const res = await instance.post(
+  const res = await instance().post(
     `/song/like`,
     { songId },
     {
@@ -53,7 +53,7 @@ export const likeSong = async (songId: number) => {
 };
 
 export const unlikeSong = async (songId: number) => {
-  const res = await instance.post(
+  const res = await instance().post(
     `/song/unlike`,
     { songId },
     { withCredentials: true }

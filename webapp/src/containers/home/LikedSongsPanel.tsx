@@ -13,7 +13,7 @@ export function LikedSongsPanel() {
   const { isLoading, data: likedSongs } = useQuery(
     'liked-songs',
     getLikedSongs,
-    { enabled: !!logged }
+    { enabled: !!logged, refetchOnWindowFocus: false }
   );
 
   const unlikeSongMutation = useMutation(unlikeSong, {

@@ -18,11 +18,13 @@ function CardListRenderer() {
   const logged = useLogged();
   const { data: songs } = useQuery(
     ['artist-songs', { id: 16775 }],
-    getArtistSongs
+    getArtistSongs,
+    { refetchOnWindowFocus: false }
   );
   const { data: myHearts } = useQuery('my-hearts', getMyHearts, {
     enabled: !!logged,
     retry: false,
+    refetchOnWindowFocus: false,
   });
 
   const likeSongMutation = useMutation(likeSong, {

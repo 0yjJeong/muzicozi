@@ -28,6 +28,7 @@ function HeartBoxContainer({ songId, initialHearts }: HeartBoxContainerProps) {
     initialData: initialHearts,
     /** Prevent to fetch on mount. */
     enabled: !!likeSongMutation.data || !!unlikeSongMutation.data,
+    refetchOnWindowFocus: false,
   });
 
   const logged = useLogged();

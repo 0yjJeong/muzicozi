@@ -1,5 +1,5 @@
 {
-  "name": "@muzicozi/server",
+  "name": "example-backend",
   "version": "0.0.1",
   "private": true,
   "scripts": {
